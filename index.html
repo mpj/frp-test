@@ -2,14 +2,10 @@
 
 <html>
   <body>
-    <h1 data-bind="text: headerText"></h1>
-    <ul data-bind="foreach: followers">
-      <li>
-        <span data-bind="text: name"></span>
-        <a href="#" data-bind="click: $root.unfollowClicked">Unfollow</a>
-      </li>
-    </ul>
-    <script src="knockout-2.2.1.js"></script>
+    <h1></h1>
+    <ul></ul>
+
+    <script src="jquery-1.9.1.js"></script>
     <script>
 
     var mockFollowers = [
@@ -21,26 +17,44 @@
       { name: 'Hannah' }
     ]
 
+    function Controller() {
+      var self = this;
 
-    function ViewModel() {
-      var self = this
-
-      self.followers = ko.observableArray(mockFollowers);
-
-      self.unfollowClicked = function(person) {
-        self.followers.splice(self.followers.indexOf(person), 1)
+      self.personUnfollowClicked = function(person) {
+        mockFollowers.splice(mockFollowers.indexOf(person), 1)
+        self.updateHeader()
+        self.updateFollowers()
       }
 
-      self.headerText = ko.computed(function() {
-        return "You are following " + self.followers().length + " people"
-      })
+      self.updateFollowers = function() {
+        $('ul').empty()
+        mockFollowers.forEach(function(follower) {
+          $('ul').append(
+            '<li>' + follower.name + '&nbsp;&nbsp;&nbsp;&nbsp;' +
+            '<a href="#">Unfollow</a></li>'
+          )
+          $('ul').children().last().data('follower', follower)
+        })
+      }
+
+      self.updateHeader = function() {
+        $('h1').text("You are following " + mockFollowers.length + " people")
+      }
 
     }
 
-    var viewModel = new ViewModel()
+    var controller = new Controller();
 
-    ko.applyBindings(viewModel)
+    $(document).ready(function() {
+      $('ul').on('click', 'li a', function(e) {
+        var follower = $(e.target).parent().data('follower');
+        controller.personUnfollowClicked(follower)
+      })
 
+      controller.updateFollowers();
+      controller.updateHeader();
+    })
     </script>
+
   </body>
 </html>
