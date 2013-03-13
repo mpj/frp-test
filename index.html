@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My fine app</title>
+  </head>
+
+  <body>
+    <h1 data-bind="text: headerText"></h1>
+    <ul data-bind="foreach: followers">
+      <li>
+        <span data-bind="text: name"></span> &nbsp;&nbsp;&nbsp;
+        <a href="#" data-bind="click: $root.personUnfollowClicked">Unfollow</a>
+      </li>
+    </ul>
+
+    <script src="knockout-2.2.1.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
