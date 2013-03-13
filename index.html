@@ -1,19 +1,46 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My fine app</title>
-  </head>
 
+<html>
   <body>
     <h1 data-bind="text: headerText"></h1>
     <ul data-bind="foreach: followers">
       <li>
-        <span data-bind="text: name"></span> &nbsp;&nbsp;&nbsp;
-        <a href="#" data-bind="click: $root.personUnfollowClicked">Unfollow</a>
+        <span data-bind="text: name"></span>
+        <a href="#" data-bind="click: $root.unfollowClicked">Unfollow</a>
       </li>
     </ul>
-
     <script src="knockout-2.2.1.js"></script>
-    <script src="index.js"></script>
+    <script>
+
+    var mockFollowers = [
+      { name: 'Johan' },
+      { name: 'Cat' },
+      { name: 'Dog' },
+      { name: 'Nils' },
+      { name: 'Forrester' },
+      { name: 'Hannah' }
+    ]
+
+
+    function ViewModel() {
+      var self = this
+
+      self.followers = ko.observableArray(mockFollowers);
+
+      self.unfollowClicked = function(person) {
+        self.followers.splice(self.followers.indexOf(person), 1)
+      }
+
+      self.headerText = ko.computed(function() {
+        return "You are following " + self.followers().length + " people"
+      })
+
+    }
+
+    var viewModel = new ViewModel()
+
+    ko.applyBindings(viewModel)
+
+    </script>
   </body>
 </html>
