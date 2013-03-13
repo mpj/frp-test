@@ -3,8 +3,10 @@
   <body>
     <h1></h1>
     <ul></ul>
+
     <script src="jquery-1.9.1.js"></script>
     <script>
+
     var mockFollowers = [
       { name: 'Johan' },
       { name: 'Cat' },
@@ -13,13 +15,16 @@
       { name: 'Forrester' },
       { name: 'Hannah' }
     ]
+
     function Controller() {
-      var self = this;
+      var self = this
+
       self.personUnfollowClicked = function(person) {
         mockFollowers.splice(mockFollowers.indexOf(person), 1)
         self.updateHeader()
         self.updateFollowers()
       }
+
       self.updateFollowers = function() {
         $('ul').empty()
         mockFollowers.forEach(function(follower) {
@@ -30,12 +35,14 @@
           $('ul').children().last().data('follower', follower)
         })
       }
+
       self.updateHeader = function() {
         $('h1').text(
           "You are following " + mockFollowers.length + " people")
       }
     }
-    var controller = new Controller();
+
+    var controller = new Controller()
     $(document).ready(function() {
       $('ul').on('click', 'li a', function(e) {
         var follower = $(e.target).parent().data('follower');
@@ -44,6 +51,7 @@
       controller.updateFollowers()
       controller.updateHeader()
     })
+
     </script>
   </body>
 </html>

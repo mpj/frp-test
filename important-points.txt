@@ -1,0 +1,14 @@
+# Important points!
+
+- Duplication!
+  - Quite a bit more code.
+  - Show h1 and updateHeader vs headerText
+
+- Divide and conquer
+  You are free to think about small problems.
+
+- View and Logic separation
+  (Ask audience why it's important)
+  - Looks nicer
+  - Testability
+  - Techy designers can commit

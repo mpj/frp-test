@@ -8,8 +8,10 @@
         <a href="#" data-bind="click: $root.unfollowClicked">Unfollow</a>
       </li>
     </ul>
+
     <script src="knockout-2.2.1.js"></script>
     <script>
+
     var mockFollowers = [
       { name: 'Johan' },
       { name: 'Cat' },
@@ -18,18 +20,24 @@
       { name: 'Forrester' },
       { name: 'Hannah' }
     ]
+
     function ViewModel() {
       var self = this
-      self.followers = ko.observableArray(mockFollowers);
+
+      self.followers = ko.observableArray(mockFollowers)
+
       self.unfollowClicked = function(person) {
         self.followers.splice(self.followers.indexOf(person), 1)
       }
+
       self.headerText = ko.computed(function() {
         return "You are following " + self.followers().length + " people"
       })
     }
+
     var viewModel = new ViewModel()
     ko.applyBindings(viewModel)
+
     </script>
   </body>
 </html>
